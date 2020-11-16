@@ -11,7 +11,7 @@ public:
 	int insertDataPlayer1(int y, int x);
 	int insertDataPlayer2(int y, int x);
 	std::vector<std::vector<int>> getScores();
-	int checkVictory(); // Return 1 if player 1 won, 2 if player 2 won, 0 otherwise
+	int checkVictory(); // Return 1 if player 1 won, 2 if player 2 won, -1 for a draw, 0 otherwise
 
 private:
 	int insertData(int y, int x, int value); // value = 1 for Player 1, -1 for Player 2
