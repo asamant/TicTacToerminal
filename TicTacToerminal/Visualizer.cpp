@@ -51,6 +51,8 @@ void Visualizer::render() {
 		// New row
 		std::cout << std::endl;
 	}
+
+	std::cout << std::endl;
 }
 
 Visualizer::Visualizer(int dim) { 

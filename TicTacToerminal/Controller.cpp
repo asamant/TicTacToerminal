@@ -20,12 +20,12 @@ int Controller::insertData(int y, int x, int value) {
 
 	// First validate input
 	if (y > this->dimension - 1 || x > this->dimension - 1 || y < 0 || x < 0) {
-		std::cout << "Please try again. Incorrect grid entry.\n";
+		std::cout << "\n!!!!! Please try again. Incorrect grid entry. !!!!!\n\n";
 		return -1;
 	}
 
 	if (this->scores[y][x] != 0) {
-		std::cout << "There's already an element there. Try another location! \n";
+		std::cout << "\n!!!!!! There's already an element there. Try another location! !!!!\n\n";
 		return -1;
 	}
 
@@ -38,25 +38,41 @@ int Controller::checkVictory(){
 	
 	int sumX = 0;
 	int sumY = 0;
-	int sumDiag = 0;
+	int sumDiag1 = 0; // for each of the diagonals 
+	int sumDiag2 = 0;
+	int mult = 1; // to check if all elements are filled
 
 	for (int i = 0; i < this->dimension; i++) {
 
 		sumX = 0;
 		sumY = 0;
-		sumDiag += scores[i][i];
+		sumDiag1 += this->scores[i][i];
+
+		int xcoordDiag = this->dimension - 1 - i;
+		sumDiag2 += this->scores[i][xcoordDiag];
 
 		auto row = this->scores[i];
 
 		for (int j = 0; j < this->dimension; j++) {
+			
 			sumX += row[j];
 			sumY += this->scores[j][i];
+
+			// will be zero if any space is unfilled
+			mult = mult * this->scores[j][i];
 		}
 
-		if (sumX == dimension || sumX == -dimension || sumY == dimension || sumY == -dimension
-			|| sumDiag == dimension || sumDiag == -dimension) {
-			return (sumX == dimension || sumY == dimension || sumDiag == dimension) ? 1 : 2;
+		if (sumX == dimension || sumY == dimension || sumDiag1 == dimension || sumDiag2 == dimension) {
+			return 1;
 		}
+
+		if (sumX == -dimension || sumY == -dimension || sumDiag1 == -dimension || sumDiag2 == -dimension) {
+			return 2;
+		}
+	}
+
+	if (mult) {
+		return -1; // the game resulted in a draw!
 	}
 
 	return 0;
