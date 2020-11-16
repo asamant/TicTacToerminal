@@ -91,5 +91,9 @@ int main()
 			currentPlayer = (currentPlayer == 1) ? 2 : 1;
 		}
 	}
+
+	std::cout << "Press any key + Return to exit...\n";
+	char c;
+	std::cin >> c;
 };
 
