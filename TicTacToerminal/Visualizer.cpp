@@ -5,12 +5,13 @@
 /*
 Update the backing fields with the appropriate data;
 */
-void Visualizer::updateData(std::vector<std::vector<char>> dataToRender) {
+void Visualizer::updateData(std::vector<std::vector<int>> dataToRender) {
 
 	// Assumption: dimension is defined when the Visualizer object is created.
 	for (int i = 0; i < this->dimension; i++) {
 		for (int j = 0; j < this->dimension; j++) {
-			this->currentData[i][j] = dataToRender[i][j];
+			this->currentData[i][j] = (dataToRender[i][j] == 1) ? 'x' :
+				(dataToRender[i][j] == -1) ? 'o' : ' ';
 		}
 	}
 }
@@ -21,11 +22,6 @@ Print the grid and user values on the terminal
 void Visualizer::render() {
 
 	std::cout << std::endl;
-
-	std::cout << "Current state:" << std::endl;
-
-	std::cout << std::endl;
-
 
 	// for every (y, x) in data field, fill (2y + 1, 4x + 2) in the graphics field
 	for (int i = 0; i < this->dimension; i++) {
@@ -77,9 +73,9 @@ Visualizer::Visualizer(int dim) {
 
 	--------- - - - --> X
 	| x | o |
-	----|---| - - -  
+	|---|---| - - -  
 	|   | x | 
-	----|---| - - -
+	|---|---| - - -
 	|
 	Y
 
